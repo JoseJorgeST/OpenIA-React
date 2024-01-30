@@ -1,7 +1,9 @@
-import React from 'react'
+import { RouterProvider } from "react-router-dom"
+import { router } from "./presentacion/router/router"
+
 
 export const ReactGTP = () => {
   return (
-    <h1 className='text-xl font-bold underline'>ReactGTP</h1>
+    <RouterProvider  router={router}/> 
   )
 }
