@@ -1,9 +1,9 @@
-import { useState } from "react"
-import { GptMessage } from "../../components/chat-bubbles/GptMessage"
-import { MyMessage } from "../../components/chat-bubbles/MyMessage"
-// import { TextMessageBox } from "../../components/chat-input-boxes/TextMessageBox"
-import { TypingLoader } from "../../components/louders/TypingLoader"
-import { TextMessageBox } from "../../components/chat-input-boxes/TextMessageBox";
+
+import { useState } from "react";
+import { GptMessage } from "../components/chat-bubbles/GptMessage";
+import { MyMessage } from "../components/chat-bubbles/MyMessage";
+import { TypingLoader } from "../components/louders/TypingLoader";
+import { TextMessageBox } from "../components/chat-input-boxes/TextMessageBox";
 
 
 interface Message {
@@ -11,7 +11,7 @@ interface Message {
   isGpt: boolean;
 }
 
-export const OrthographyPage = () => {
+export const Template = () => {
 
   const [isLoading, setIsLoading] = useState(false)
   const [messages, setMessages] = useState<Message[]>([])
@@ -67,8 +67,6 @@ export const OrthographyPage = () => {
         placeholder="Escribe aqui lo que deseas"
         disableCorrections
       />
-
-     
 
     </div>
   )
