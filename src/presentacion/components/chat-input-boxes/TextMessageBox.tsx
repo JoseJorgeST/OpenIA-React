@@ -19,7 +19,7 @@ export const TextMessageBox = ({onSendMenssage, placeholder, disableCorrections=
         onSendMenssage(message);
         setMessage('')
 
-        console.log("handleSendMessage")
+        
     }
 
   return (

@@ -4,11 +4,18 @@ import { MyMessage } from "../../components/chat-bubbles/MyMessage"
 // import { TextMessageBox } from "../../components/chat-input-boxes/TextMessageBox"
 import { TypingLoader } from "../../components/louders/TypingLoader"
 import { TextMessageBox } from "../../components/chat-input-boxes/TextMessageBox";
+import { orthographyUseCase } from "../../../core/use-cases/orthography.use-case";
+import { GptOrthographyMessage } from "../../components/chat-bubbles/GptOrthographyMessage";
 
 
 interface Message {
   text: string;
   isGpt: boolean;
+  info?:{
+    userScore:number;
+    errors: string[];
+    message:string;
+  }
 }
 
 export const OrthographyPage = () => {
@@ -21,7 +28,16 @@ export const OrthographyPage = () => {
     setIsLoading(true);
     setMessages((prev) => [...prev, { text: text, isGpt: false}])
 
-    // TODO: UseCase
+    const {ok, errors, message, userScore} = await orthographyUseCase(text)
+    if(!ok){
+      setMessages((prev) => [...prev, { text: 'No se pudo relaizar la corrección', isGpt: true}])
+    }else{
+      setMessages((prev) => [...prev, {
+         text: message, 
+         isGpt: true,
+         info: {errors, message, userScore}
+        }])
+    }
     setIsLoading(false)
   }
 
@@ -36,7 +52,7 @@ export const OrthographyPage = () => {
             messages.map((message, index)=>(
                 message.isGpt
                   ?(
-                    <GptMessage key={index} text="Esto es de OpenIA " />
+                    <GptOrthographyMessage key={index} {...message.info!} />
                   )
                   :(
                     <MyMessage key={index} text={message.text} />
